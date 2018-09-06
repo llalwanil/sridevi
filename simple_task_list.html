@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div id="root">
+      <!-- computed properties -->
+      <!-- <h1 v-text="new Date()"></h1> -->
+      <!-- <h1>{{ reversedMessage }}</h1> -->
+      <h1>All Tasks</h1>
+      <!-- Task To Do List -->
+      <li v-for="task in tasks">
+        {{ task.description }}
+        <!-- <span>Status: {{ task.completed ? "Done" : "Do it!"}}</span> -->
+        <button v-if="task.completed == false" @click="task.completed = true">Finish</button>
+        <button v-else @click="task.completed = false">Undo</button>
+      </li>
+      <!-- <ul>
+        <li v-for="task in tasks" v-text="task.description"></li>  
+      </ul> -->
+      <!-- Filter Tasks -->
+      <h2>Incomplete Tasks</h2>
+      <ul>
+        <li v-for="task in incompletedTasks" v-text="task.description"></li>
+      </ul>
+
+      <h2>Completed Tasks</h2>
+      <ul>
+        <li v-for="task in completedTasks" v-text="task.description"></li>
+      </ul>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>
+
+    <script>
+      new Vue({
+        el:'#root',
+        data: {
+          // message: 'Hello World',
+          tasks: [
+            { description: 'Go to the store', completed: true },
+            { description: 'Finish Screencast', completed: false },
+            { description: 'Make dinner', completed: false },
+            { description: 'Clear inbox', completed: false },
+            { description: 'Clean room', completed: false },
+            { description: 'Make donation', completed: true },
+          ]
+        },
+        computed: {
+          incompletedTasks() {
+            return this.tasks.filter(task => !task.completed)
+            // Vanilla Javascript
+            // return this.tasks.filter(function(task) {
+            //   return !task.completed;
+            // })
+          },
+          completedTasks() {
+            return this.tasks.filter(task => task.completed)
+          }
+          // reversedMessage() {
+          //   return this.message.split('').reverse().join("")
+          // }
+        }
+      })
+    </script>
+  </body>
+</html>
